@@ -4,13 +4,13 @@
 
 <mat-drawer-container id="media">
     <mat-drawer id="albums" [mode]="'side'" [opened]="true">
-        <ul>
-            <li *ngFor="let albumName of albumNames">
-                <button (click)="viewAlbum(albumName)">
-                    {{albumName}}
-                </button>
-            </li>
-        </ul>
+        <mat-selection-list [multiple]="false" (selectionChange)="onSelectionChanged($event)">
+            <div mat-subheader>Albums</div>
+            <mat-list-option *ngFor="let albumName of albumNames" [value]="albumName">
+                <mat-icon mat-list-icon>folder</mat-icon>
+                {{albumName}}
+            </mat-list-option>
+        </mat-selection-list>
     </mat-drawer>
 
     <mat-drawer-content>

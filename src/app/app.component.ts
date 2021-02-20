@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { config as awsConfig, CognitoIdentityCredentials, S3 } from 'aws-sdk';
+import { MatSelectionListChange } from '@angular/material/list';
 
 @Component({
   selector: 'app-root',
@@ -45,8 +46,7 @@ export class AppComponent {
   }
 
   viewAlbum(albumName: string): void {
-    const albumPhotosKey = encodeURIComponent(albumName) + '/';
-    this.s3.listObjectsV2({Prefix: albumPhotosKey, Bucket: this.s3Bucket}, (err, data) => {
+    this.s3.listObjectsV2({Prefix: albumName + '/', Bucket: this.s3Bucket}, (err, data) => {
       if (err) {
         return alert(err.message);
       }
@@ -54,9 +54,15 @@ export class AppComponent {
       if (data.Contents) {
         this.mediaUrls = data.Contents.map(value => {
           const valueKey = value.Key ? value.Key : '';
-          return `https://${this.s3Bucket}.s3.${this.s3Region}.amazonaws.com/${encodeURIComponent(valueKey)}`;
+          return `https://${this.s3Bucket}.s3.${this.s3Region}.amazonaws.com/${valueKey}`;
         });
       }
     });
+  }
+
+  onSelectionChanged(matSelectionListChange: MatSelectionListChange): void {
+    if (matSelectionListChange.option.selected) {
+      this.viewAlbum(matSelectionListChange.option.value);
+    }
   }
 }
