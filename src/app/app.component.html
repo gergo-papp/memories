@@ -2,25 +2,31 @@
     <span>Tanzania & Zanzibar 2021</span>
 </mat-toolbar>
 
-<div id="media">
-    <ul>
-        <li *ngFor="let albumName of albumNames">
-            <button (click)="viewAlbum(albumName)">
-                {{albumName}}
-            </button>
-        </li>
-    </ul>
+<mat-drawer-container id="media">
+    <mat-drawer id="albums" [mode]="'side'" [opened]="true">
+        <ul>
+            <li *ngFor="let albumName of albumNames">
+                <button (click)="viewAlbum(albumName)">
+                    {{albumName}}
+                </button>
+            </li>
+        </ul>
+    </mat-drawer>
 
-    <div *ngFor="let mediaUrl of mediaUrls">
-        <div *ngIf="mediaUrl.includes('JPG')">
-            <img [src]="mediaUrl" />
+    <mat-drawer-content>
+        <div id="pictures">
+            <div *ngFor="let mediaUrl of mediaUrls">
+                <div *ngIf="mediaUrl.includes('JPG')">
+                    <img [src]="mediaUrl" />
+                </div>
+                <!-- <ng-template #videoBlock>
+                            <video controls>
+                                <source [src]="mediaUrl" type="video/mp4">
+                            </video>
+                        </ng-template> -->
+            </div>
         </div>
-        <!-- <ng-template #videoBlock>
-                    <video controls>
-                        <source [src]="mediaUrl" type="video/mp4">
-                    </video>
-                </ng-template> -->
-    </div>
-</div>
+    </mat-drawer-content>
+</mat-drawer-container>
 
 <router-outlet></router-outlet>
