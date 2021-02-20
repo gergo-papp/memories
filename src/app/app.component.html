@@ -1,20 +1,26 @@
-<ul>
-    <li *ngFor="let albumName of albumNames">
-        <button (click)="viewAlbum(albumName)">
-            {{albumName}}
-        </button>
-    </li>
-</ul>
+<mat-toolbar id="toolbar" class="mat-primary">
+    <span>Tanzania & Zanzibar 2021</span>
+</mat-toolbar>
 
-<div *ngFor="let mediaUrl of mediaUrls">
-    <div *ngIf="mediaUrl.includes('JPG')">
-        <img [src]="mediaUrl"/>
+<div id="media">
+    <ul>
+        <li *ngFor="let albumName of albumNames">
+            <button (click)="viewAlbum(albumName)">
+                {{albumName}}
+            </button>
+        </li>
+    </ul>
+
+    <div *ngFor="let mediaUrl of mediaUrls">
+        <div *ngIf="mediaUrl.includes('JPG')">
+            <img [src]="mediaUrl" />
+        </div>
+        <!-- <ng-template #videoBlock>
+                    <video controls>
+                        <source [src]="mediaUrl" type="video/mp4">
+                    </video>
+                </ng-template> -->
     </div>
-    <!-- <ng-template #videoBlock>
-        <video controls>
-            <source [src]="mediaUrl" type="video/mp4">
-        </video>
-    </ng-template> -->
 </div>
 
 <router-outlet></router-outlet>
