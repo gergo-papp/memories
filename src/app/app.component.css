@@ -40,7 +40,8 @@ img {
 
 video {
     display: block;
-    width: 100%;
+    flex: 0 1 100%;
+    width: 0px;
     max-width: 1080px;
     margin: 10px;
 }
