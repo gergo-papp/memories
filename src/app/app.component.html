@@ -1,4 +1,7 @@
-<mat-toolbar id="toolbar" class="mat-primary">
+<mat-toolbar id="toolbar" color="primary">
+    <button mat-icon-button aria-label="Toggle albums" (click)="albumsOpened = !albumsOpened">
+        <mat-icon>menu</mat-icon>
+    </button>
     <span>Tanzania & Zanzibar 2021</span>
 </mat-toolbar>
 
@@ -6,7 +9,7 @@
     <mat-drawer id="albums" [mode]="'side'" [opened]="albumsOpened">
         <mat-selection-list [multiple]="false" (selectionChange)="onSelectionChanged($event)">
             <div mat-subheader>Albums</div>
-            <mat-list-option *ngFor="let albumName of albumNames" [value]="albumName">
+            <mat-list-option *ngFor="let albumName of albumNames" [value]="albumName" [selected]="albumName === albumNames[0]">
                 <mat-icon mat-list-icon>folder</mat-icon>
                 {{albumName}}
             </mat-list-option>
@@ -17,18 +20,26 @@
         <mat-tab-group>
             <mat-tab label="Pictures">
                 <div *ngFor="let imageUrl of imageUrlsToLoad">
-                    <img [src]="imageUrl"/>
+                    <img [src]="imageUrl" />
                 </div>
+                <span *ngIf="!imageUrlsToLoad.length">
+                    There are no images in this album
+                </span>
             </mat-tab>
             <mat-tab label="Videos">
-                <video #video controls autoplay [src]="videoUrls[videoIndex]">
-                </video>
-                <button mat-icon-button aria-label="Previous" (click)="videoIndex = videoIndex - 1">
-                    <mat-icon>navigate_before</mat-icon>
-                </button>
-                <button mat-icon-button aria-label="Next" (click)="videoIndex = videoIndex + 1">
-                    <mat-icon>navigate_next</mat-icon>
-                </button>
+                <div id="video-container">
+                    <button mat-mini-fab color="accent" aria-label="Previous" (click)="videoIndex = videoIndex - 1">
+                        <mat-icon>navigate_before</mat-icon>
+                    </button>
+                    <video #video controls autoplay [src]="videoUrls[videoIndex]">
+                    </video>
+                    <button mat-mini-fab color="accent" aria-label="Next" (click)="videoIndex = videoIndex + 1">
+                        <mat-icon>navigate_next</mat-icon>
+                    </button>
+                </div>
+                <span class="video-title">
+                    {{ videoUrls[videoIndex] ? videoUrls[videoIndex].substring(videoUrls[videoIndex].lastIndexOf('/')) : 'No video' }}
+                </span>
             </mat-tab>
         </mat-tab-group>
     </mat-drawer-content>

@@ -16,6 +16,17 @@
     height: 100%;
 }
 
+#video-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-title {
+    display: block;
+    text-align: center;
+}
+
 img {
     display: block;
 
@@ -31,5 +42,5 @@ video {
     display: block;
     width: 100%;
     max-width: 1080px;
-    margin: auto;
+    margin: 10px;
 }
