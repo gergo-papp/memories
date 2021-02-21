@@ -16,7 +16,7 @@
     height: 100%;
 }
 
-img, video {
+img {
     display: block;
 
     margin-left: auto;
@@ -25,4 +25,11 @@ img, video {
 
     width: 100%;
     max-width: 1080px;
+}
+
+video {
+    display: block;
+    width: 100%;
+    max-width: 1080px;
+    margin: auto;
 }
