@@ -3,7 +3,7 @@
 </mat-toolbar>
 
 <mat-drawer-container id="media">
-    <mat-drawer id="albums" [mode]="'side'" [opened]="true">
+    <mat-drawer id="albums" [mode]="'side'" [opened]="albumsOpened">
         <mat-selection-list [multiple]="false" (selectionChange)="onSelectionChanged($event)">
             <div mat-subheader>Albums</div>
             <mat-list-option *ngFor="let albumName of albumNames" [value]="albumName">
@@ -14,18 +14,23 @@
     </mat-drawer>
 
     <mat-drawer-content>
-        <div id="pictures">
-            <div *ngFor="let mediaUrl of mediaUrls">
-                <div *ngIf="mediaUrl.includes('JPG')">
-                    <img [src]="mediaUrl" />
+        <mat-tab-group>
+            <mat-tab label="Pictures">
+                <div *ngFor="let imageUrl of imageUrlsToLoad">
+                    <img [src]="imageUrl"/>
                 </div>
-                <!-- <ng-template #videoBlock>
-                            <video controls>
-                                <source [src]="mediaUrl" type="video/mp4">
-                            </video>
-                        </ng-template> -->
-            </div>
-        </div>
+            </mat-tab>
+            <mat-tab label="Videos">
+                <video #video controls autoplay [src]="videoUrls[videoIndex]">
+                </video>
+                <button mat-icon-button aria-label="Previous" (click)="videoIndex = videoIndex - 1">
+                    <mat-icon>navigate_before</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="Next" (click)="videoIndex = videoIndex + 1">
+                    <mat-icon>navigate_next</mat-icon>
+                </button>
+            </mat-tab>
+        </mat-tab-group>
     </mat-drawer-content>
 </mat-drawer-container>
 
